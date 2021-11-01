@@ -48,10 +48,6 @@ func (c *Core) DELETE(url string, handler ControllerHandler) {
 	c.router["DELETE"][upperUrl] = handler
 }
 
-func (c *Core) Set(url string, handler ControllerHandler) {
-	c.router[url] = handler
-}
-
 func (c *Core) Group(prefix string) IGroup {
 	return NewGroup(c, prefix)
 }
