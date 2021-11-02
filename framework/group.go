@@ -1,10 +1,10 @@
 package framework
 
 type IGroup interface {
-	Get(string, ControllerHandler)
+	GET(string, ControllerHandler)
 	POST(string, ControllerHandler)
 	PUT(string, ControllerHandler)
-	Delete(string, ControllerHandler)
+	DELETE(string, ControllerHandler)
 
 	Group(string) IGroup
 }
@@ -23,7 +23,7 @@ func NewGroup(core *Core, prefix string) *Group {
 	}
 }
 
-func (g *Group) Get(uri string, handler ControllerHandler) {
+func (g *Group) GET(uri string, handler ControllerHandler) {
 	uri = g.getAbsolutePrefix() + uri
 	g.core.GET(uri, handler)
 }
@@ -33,7 +33,7 @@ func (g *Group) POST(uri string, handler ControllerHandler) {
 	g.core.POST(uri, handler)
 }
 
-func (g *Group) Delete(uri string, handler ControllerHandler) {
+func (g *Group) DELETE(uri string, handler ControllerHandler) {
 	uri = g.getAbsolutePrefix() + uri
 	g.core.DELETE(uri, handler)
 }
