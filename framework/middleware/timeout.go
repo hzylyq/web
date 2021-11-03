@@ -1,21 +1,23 @@
-package framework
+package middleware
 
 import (
 	"context"
 	"fmt"
 	"log"
 	"time"
+
+	"github.com/hzy/web/framework"
 )
 
-func TimeoutHandler(fun ControllerHandler, d time.Duration) ControllerHandler {
-	return func(c *Context) error {
+func TimeoutHandler(fun framework.ControllerHandler, d time.Duration) framework.ControllerHandler {
+	return func(c *framework.Context) error {
 		finish := make(chan struct{}, 1)
 		panicChan := make(chan interface{}, 1)
 
 		durationCtx, cancel := context.WithTimeout(c.BaseContext(), d)
 		defer cancel()
 
-		c.req.WithContext(durationCtx)
+		c.Request().WithContext(durationCtx)
 
 		go func() {
 			defer func() {

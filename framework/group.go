@@ -7,12 +7,16 @@ type IGroup interface {
 	DELETE(string, ControllerHandler)
 
 	Group(string) IGroup
+
+	Use(middlewares ...ControllerHandler)
 }
 
 type Group struct {
 	core   *Core
 	parent *Group
 	prefix string
+
+	middlewares []ControllerHandler
 }
 
 func NewGroup(core *Core, prefix string) *Group {
@@ -56,4 +60,8 @@ func (g *Group) Group(uri string) IGroup {
 	cGroup.parent = g
 
 	return cGroup
+}
+
+func (g *Group) Use(middlewares ...ControllerHandler) {
+	g.middlewares = middlewares
 }

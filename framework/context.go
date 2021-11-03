@@ -30,6 +30,7 @@ func NewContext(r *http.Request, w http.ResponseWriter) *Context {
 		resp:     w,
 		ctx:      r.Context(),
 		writeMux: &sync.Mutex{},
+		index:    -1,
 	}
 }
 
@@ -51,6 +52,19 @@ func (ctx *Context) SetHasTimeout() {
 
 func (ctx *Context) HasTimeout() bool {
 	return ctx.hasTimeOut
+}
+
+func (ctx *Context) SetHandlers(handlers []ControllerHandler) {
+	ctx.handlers = handlers
+}
+
+func (ctx *Context) Next() error {
+	ctx.index++
+	if ctx.index < len(ctx.handlers) {
+		return ctx.handlers[ctx.index](ctx)
+	}
+
+	return nil
 }
 
 func (ctx *Context) BaseContext() context.Context {
