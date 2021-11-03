@@ -44,7 +44,7 @@ func (n *node) filterChildNode(segment string) []*node {
 		return n.children
 	}
 
-	nodes := make([]*node, len(n.children))
+	nodes := make([]*node, 0, len(n.children))
 
 	for _, child := range n.children {
 		if isWildSegment(child.segment) {

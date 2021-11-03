@@ -5,10 +5,14 @@ import (
 	"net/http"
 
 	"github.com/hzy/web/framework"
+	"github.com/hzy/web/framework/middleware"
 )
 
 func main() {
 	core := framework.NewCore()
+	core.Use(middleware.Recovery())
+	core.Use(middleware.Cost())
+
 	registerRouter(core)
 
 	server := &http.Server{
