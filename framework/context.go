@@ -19,6 +19,9 @@ type Context struct {
 
 	hasTimeOut bool
 	writeMux   *sync.Mutex
+
+	handlers []ControllerHandler
+	index    int
 }
 
 func NewContext(r *http.Request, w http.ResponseWriter) *Context {

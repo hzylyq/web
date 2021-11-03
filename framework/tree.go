@@ -14,6 +14,8 @@ type node struct {
 	segment  string
 	handler  ControllerHandler
 	children []*node
+
+	handlers []ControllerHandler
 }
 
 func newNode() *node {
