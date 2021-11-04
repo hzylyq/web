@@ -81,7 +81,7 @@ func (ctx *Context) QueryFloat64(key string, def float64) (float64, bool) {
 		if len(vals) > 0 {
 			return cast.ToFloat64(vals[0]), true
 		}
-	}``
+	}
 	return def, false
 }
 
